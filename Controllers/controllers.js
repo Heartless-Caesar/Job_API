@@ -17,6 +17,11 @@ const login = async (req, res) => {
     res.status(201).json({ message: `Token for user ${username} signed` });
 };
 
+//REGISTRATION
+const register = async (req, res) => {
+    res.status(201).send("Register controller");
+};
+
 //GET ALL
 const getAllJobs = async (req, res) => {
     res.status(201).send("Get all jobs");
@@ -42,4 +47,12 @@ const deleteJob = async (req, res) => {
     res.status(201).send("Delete job");
 };
 
-module.exports = { login, getAllJobs, getJob, createJob, updateJob, deleteJob };
+module.exports = {
+    login,
+    register,
+    getAllJobs,
+    getJob,
+    createJob,
+    updateJob,
+    deleteJob,
+};
