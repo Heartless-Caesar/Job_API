@@ -1,4 +1,4 @@
-const { Unauthorized } = require("./middleware/unauthorized");
+const { Unauthorized } = require("./unauthorized");
 const JWT = require("jsonwebtoken");
 require("dotenv").config();
 
