@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Please provide a username"],
     },
     password: {
-        type: number,
+        type: Number,
         required: [true, "Please provide a password"],
     },
 });

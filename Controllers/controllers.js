@@ -10,7 +10,7 @@ const login = async (req, res) => {
     if (!username || !password) {
         throw new BadRequest("Please provide the missing credential");
     }
-    const dbUser = UserSchema.findOne({ username: username });
+    const dbUser = await UserSchema.findOne({ username: username });
 
     const token = JWT.sign(dbUser, process.env.JWT_Secret);
 

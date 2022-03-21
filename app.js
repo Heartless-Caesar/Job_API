@@ -16,7 +16,7 @@ const start = async (req, res) => {
     try {
         await connectDB;
         app.listen(() => {
-            `Connected to port ${port}`;
+            console.log(`Connected to port ${port}`);
         });
     } catch (error) {
         console.log(error);
