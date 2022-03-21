@@ -6,15 +6,17 @@ const express = require("express");
 const app = express();
 const port = 5000;
 
-//JSONPARSING
+//JSON PARSING
 app.use(express.json());
 
+//404 MIDDLEWARE
 app.use(notFound);
 
 //ROUTES
 app.use("/auth", authRouter);
 app.use("/jobs", jobRouter);
 
+//INIT FUNCTION
 const start = async (req, res) => {
     try {
         await connectDB;
