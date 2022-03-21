@@ -1,4 +1,5 @@
 const authRouter = require("./Routes/authRoutes");
+const notFound = require("./middleware/notFound");
 const jobRouter = require("./Routes/jobRoutes");
 const connectDB = require("./connect");
 const express = require("express");
@@ -7,6 +8,8 @@ const port = 5000;
 
 //JSONPARSING
 app.use(express.json());
+
+app.use(notFound);
 
 //ROUTES
 app.use("/auth", authRouter);
