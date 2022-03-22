@@ -34,3 +34,5 @@ let errorHandlerMiddleware = (err, req, res, next) => {
         .status(customError.statusCode)
         .json({ message: customError.message });
 };
+
+module.exports = errorHandlerMiddleware;
