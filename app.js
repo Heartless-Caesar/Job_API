@@ -19,7 +19,7 @@ app.use(errorHandlerMiddleware);
 
 //ROUTES
 app.use("/app/auth", authRouter);
-app.use("/app/jobs", jobRouter);
+//app.use("/app/jobs", jobRouter);
 
 //INIT FUNCTION
 const start = async () => {
