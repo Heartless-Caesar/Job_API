@@ -6,4 +6,4 @@ authRouter.route("/login").post(login);
 
 authRouter.route("/register").get(register);
 
-module.exports = authRouter;
+module.exports = { authRouter };

@@ -1,12 +1,16 @@
 const errorHandlerMiddleware = require("./middleware/errorHandlerMiddleware");
-const authRouter = require("./Routes/authRoutes");
+const { authRouter } = require("./Routes/authRoutes");
 const notFound = require("./middleware/notFound");
-const jobRouter = require("./Routes/jobRoutes");
+const { jobRouter } = require("./Routes/jobRoutes");
 const connectDB = require("./connect");
 const express = require("express");
 require("express-async-errors");
 const app = express();
 const port = 5000;
+
+//ROUTES
+app.use("/auth", authRouter);
+app.use("/app/jobs", jobRouter);
 
 //JSON PARSING
 app.use(express.json());
@@ -17,15 +21,11 @@ app.use(notFound);
 //CUSTOM ERROR, VALIDATION ERROR, DUPLICATION ERROR HANDLER
 app.use(errorHandlerMiddleware);
 
-//ROUTES
-app.use("/app/auth", authRouter);
-//app.use("/app/jobs", jobRouter);
-
 //INIT FUNCTION
 const start = async () => {
     try {
         await connectDB;
-        app.listen(() => {
+        app.listen(port, () => {
             console.log(`Connected to port ${port}`);
         });
     } catch (error) {
