@@ -17,11 +17,11 @@ app.use(notFound);
 app.use(errorHandlerMiddleware);
 
 //ROUTES
-app.use("/auth", authRouter);
-app.use("/jobs", jobRouter);
+app.use("/app/auth", authRouter);
+app.use("/app/jobs", jobRouter);
 
 //INIT FUNCTION
-const start = async (req, res) => {
+const start = async () => {
     try {
         await connectDB;
         app.listen(() => {

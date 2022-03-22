@@ -1,6 +1,6 @@
+const { BadRequest } = require("../middleware/BadRequest");
 const UserSchema = require("../Schemas/userSchema");
 const JWT = require("jsonwebtoken");
-const { BadRequest } = require("../middleware/BadRequest");
 require("dotenv").config();
 
 //LOGIN
@@ -19,7 +19,7 @@ const login = async (req, res) => {
 
 //REGISTRATION
 const register = async (req, res) => {
-    res.status(201).send("Register controller");
+    res.status(201).send("User registered");
 };
 
 //GET ALL
