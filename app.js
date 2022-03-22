@@ -4,6 +4,7 @@ const notFound = require("./middleware/notFound");
 const jobRouter = require("./Routes/jobRoutes");
 const connectDB = require("./connect");
 const express = require("express");
+require("express-async-errors");
 const app = express();
 const port = 5000;
 
