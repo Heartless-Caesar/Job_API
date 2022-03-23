@@ -24,8 +24,12 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
+//WILL HASH THE PASSWORD WHEN A USER CREATES THEIR ACCOUNT
 UserSchema.pre("save", async function () {
+    //GENERATES NUMBER OF RANDOM BYTES
     const salt = await bcrypt.genSalt(10);
+
+    //HASHES THE PASSWORD BASED ON THE GENERATED SALT
     this.password = await bcrypt.hash(this.password, salt);
 });
 
