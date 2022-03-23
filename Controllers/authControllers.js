@@ -26,9 +26,15 @@ const register = async (req, res) => {
     if (!username || !password || !email) {
         throw new BadRequest("Please provide valid credentials");
     }
-    const user = await UserSchema.create({ ...req.body });
 
-    res.status(StatusCodes.CREATED).json({ msg: "User registered" });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const tempUser = { username, email, password: hashedPassword };
+
+    const user = await UserSchema.create({ ...tempUser });
+
+    res.status(StatusCodes.CREATED).json({ msg: `User ${user}` });
 };
 
 module.exports = { login, register };
