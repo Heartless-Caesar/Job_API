@@ -8,12 +8,12 @@ require("express-async-errors");
 const app = express();
 const port = 5000;
 
+//JSON PARSING
+app.use(express.json());
+
 //ROUTES
 app.use("/app/auth", authRouter);
 app.use("/app/jobs", jobRouter);
-
-//JSON PARSING
-app.use(express.json());
 
 //404 MIDDLEWARE
 app.use(notFound);

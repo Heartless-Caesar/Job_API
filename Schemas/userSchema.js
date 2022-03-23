@@ -8,10 +8,9 @@ const UserSchema = new mongoose.Schema({
         maxlength: 30,
     },
     password: {
-        type: Number,
+        type: String,
         required: [true, "Please provide a password"],
         minlength: 8,
-        maxlength: 12,
     },
     email: {
         type: String,
