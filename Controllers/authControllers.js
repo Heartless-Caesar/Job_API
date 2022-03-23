@@ -1,5 +1,8 @@
+const BadRequest = require("../middleware/BadRequest");
+const { StatusCodes } = require("http-status-codes");
 const UserSchema = require("../Schemas/userSchema");
 const JWT = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 //LOGIN
@@ -18,7 +21,14 @@ const login = async (req, res) => {
 
 //REGISTRATION
 const register = async (req, res) => {
-    res.status(201).json({ msg: "User registered" });
+    const { username, password, email } = req.body;
+
+    if (!username || !password || !email) {
+        throw new BadRequest("Please provide valid credentials");
+    }
+    const user = await UserSchema.create({ ...req.body });
+
+    res.status(StatusCodes.CREATED).json({ msg: "User registered" });
 };
 
 module.exports = { login, register };

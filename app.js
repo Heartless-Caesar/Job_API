@@ -9,7 +9,7 @@ const app = express();
 const port = 5000;
 
 //ROUTES
-app.use("/auth", authRouter);
+app.use("/app/auth", authRouter);
 app.use("/app/jobs", jobRouter);
 
 //JSON PARSING
