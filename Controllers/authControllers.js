@@ -26,12 +26,6 @@ const login = async (req, res) => {
 const register = async (req, res) => {
     const user = await UserSchema.create({ ...req.body });
 
-    const token = JWT.sign(
-        { userId: user._id, name: user.username },
-        process.env.JWT_Secret,
-        { expiresIn: "30d" }
-    );
-
     res.status(StatusCodes.CREATED).json({ msg: `User ${user}`, token: token });
 };
 
