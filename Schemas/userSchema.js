@@ -35,7 +35,7 @@ UserSchema.pre("save", async function () {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-//SIGNS WEB TOKEN
+//SIGNS WEB TOKEN WHEN INVOKED IN THE CONTROLLER
 UserSchema.methods.createJWT = function () {
     return JWT.sign(
         { userID: this._id, user: this.username },
