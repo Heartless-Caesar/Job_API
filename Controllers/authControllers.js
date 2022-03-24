@@ -12,18 +12,27 @@ const login = async (req, res) => {
     if (!username || !password) {
         throw new BadRequest("Please provide the missing credential");
     }
+
     const dbUser = await UserSchema.findOne({ username: username });
 
-    const token = JWT.sign(dbUser, process.env.JWT_Secret);
+    const token = JWT.verify(dbUser, process.env.JWT_Secret);
 
-    res.status(201).json({ message: `Token for user ${username} signed` });
+    res.status(StatusCodes.ACCEPTED).json({
+        message: `Token for user ${username} signed`,
+    });
 };
 
 //REGISTRATION
 const register = async (req, res) => {
     const user = await UserSchema.create({ ...req.body });
 
-    res.status(StatusCodes.CREATED).json({ msg: `User ${user}` });
+    const token = JWT.sign(
+        { userId: user._id, name: user.username },
+        process.env.JWT_Secret,
+        { expiresIn: "30d" }
+    );
+
+    res.status(StatusCodes.CREATED).json({ msg: `User ${user}`, token: token });
 };
 
 module.exports = { login, register };
