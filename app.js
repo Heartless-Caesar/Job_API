@@ -11,15 +11,15 @@ const port = 5000;
 //JSON PARSING
 app.use(express.json());
 
+//CUSTOM ERROR, VALIDATION ERROR, DUPLICATION ERROR HANDLER
+app.use(errorHandlerMiddleware);
+
 //ROUTES
 app.use("/app/auth", authRouter);
 app.use("/app/jobs", jobRouter);
 
 //404 MIDDLEWARE
 app.use(notFound);
-
-//CUSTOM ERROR, VALIDATION ERROR, DUPLICATION ERROR HANDLER
-app.use(errorHandlerMiddleware);
 
 //INIT FUNCTION
 const start = async () => {
