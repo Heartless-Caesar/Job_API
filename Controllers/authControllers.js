@@ -24,8 +24,13 @@ const login = async (req, res) => {
 
 //REGISTRATION
 const register = async (req, res) => {
+    //GETS REQUEST BODY FROM SCHEMA ELEMENTS
     const user = await UserSchema.create({ ...req.body });
+
+    //METHOD EXECUTED TO ASSIGN 30 DAY TOKEN
     const token = user.createJWT();
+
+    //SUCESSFULL OPERATIONS
     res.status(StatusCodes.CREATED).json({ msg: `User ${user}`, token: token });
 };
 
