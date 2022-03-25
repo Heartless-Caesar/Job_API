@@ -1,23 +1,31 @@
 const BadRequest = require("../middleware/BadRequest");
+const Unauthorized = require("../middleware/unauthorized");
 const { StatusCodes } = require("http-status-codes");
 const UserSchema = require("../Schemas/userSchema");
-const JWT = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 //LOGIN
 const login = async (req, res) => {
+    //LOGIN CREDENTIALS
     const { username, password } = req.body;
 
+    //ERROR IF MISSING CREDENTIAL
     if (!username || !password) {
         throw new BadRequest("Please provide the missing credential");
     }
 
-    const dbUser = await UserSchema.findOne({ username: username });
+    //FINDS USER IN DB
+    const dbUser = await UserSchema.findOne({ username });
 
-    const token = JWT.verify(dbUser, process.env.JWT_Secret);
+    //ERROR IF THERE IS NO SUCH USER
+    if (!dbUser) {
+        throw new Unauthorized("Invalid credentials");
+    }
 
-    res.status(StatusCodes.ACCEPTED).json({
+    //SIGNS A NEW TOKEN FOR THE LOGGED USER
+    const token = dbUser.createJWT();
+
+    res.status(StatusCodes.OK).json({
         message: `Token for user ${username} signed`,
     });
 };

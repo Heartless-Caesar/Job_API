@@ -40,7 +40,7 @@ UserSchema.methods.createJWT = function () {
     return JWT.sign(
         { userID: this._id, user: this.username },
         process.env.JWT_Secret,
-        { expiresIn: "30d" }
+        { expiresIn: process.env.JWT_EXPIRATION }
     );
 };
 
