@@ -19,6 +19,7 @@ const jwtAuth = async (req, res, next) => {
         //PASSING USER DATA TO A HEADER ONCE LOGIN IS SUCCESSFUL
         req.user = { id: payload._id, name: payload.username };
 
+        //PASSES TO NEXT MIDDLEWARE
         next();
     } catch (error) {
         throw new Unauthorized(error.message);
