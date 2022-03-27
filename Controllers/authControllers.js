@@ -25,6 +25,12 @@ const login = async (req, res) => {
     //SIGNS A NEW TOKEN FOR THE LOGGED USER
     const token = dbUser.createJWT();
 
+    //COMAPRING INPUTTED PASSWORD WITH ONE IN DB
+    const verifyPass = await dbUser.matchPassword();
+    if (!verifyPass) {
+        throw new Unauthorized("Passwords do not match");
+    }
+
     res.status(StatusCodes.OK).json({
         message: `Token for user ${username} signed`,
     });
