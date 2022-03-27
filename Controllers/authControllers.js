@@ -26,7 +26,8 @@ const login = async (req, res) => {
     const token = dbUser.createJWT();
 
     //COMAPRING INPUTTED PASSWORD WITH ONE IN DB
-    const verifyPass = await dbUser.matchPassword();
+    const verifyPass = await dbUser.matchPassword(password);
+
     if (!verifyPass) {
         throw new Unauthorized("Passwords do not match");
     }
