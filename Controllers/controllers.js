@@ -1,5 +1,5 @@
 const { BadRequest } = require("../middleware/BadRequest");
-const UserSchema = require("../Schemas/userSchema");
+const jobSchema = require("../Schemas/jobSchema");
 const JWT = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -15,7 +15,7 @@ const getJob = async (req, res) => {
 
 //CREATE
 const createJob = async (req, res) => {
-    res.status(201).send("Create job");
+    res.status(201).json(req.body);
 };
 
 //UPDATE

@@ -7,15 +7,15 @@ require("dotenv").config();
 //LOGIN
 const login = async (req, res) => {
     //LOGIN CREDENTIALS
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     //ERROR IF MISSING CREDENTIAL
-    if (!username || !password) {
+    if (!email || !password) {
         throw new BadRequest("Please provide the missing credential");
     }
 
     //FINDS USER IN DB
-    const dbUser = await UserSchema.findOne({ username });
+    const dbUser = await UserSchema.findOne({ email });
 
     //ERROR IF THERE IS NO SUCH USER
     if (!dbUser) {
@@ -33,7 +33,8 @@ const login = async (req, res) => {
     }
 
     res.status(StatusCodes.OK).json({
-        message: `Token for user ${username} signed`,
+        message: `Token for user ${email} signed`,
+        token: token,
     });
 };
 
