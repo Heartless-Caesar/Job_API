@@ -15,7 +15,7 @@ const getJob = async (req, res) => {
 
 //CREATE
 const createJob = async (req, res) => {
-    req.body.createdBy = req.user.userId;
+    req.body.createdBy = req.user._id;
     console.log(req.headers);
     const companyDB = await jobSchema.create(req.body);
 

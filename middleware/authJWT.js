@@ -1,5 +1,4 @@
 const Unauthorized = require("./unauthorized");
-const User = require("../Schemas/userSchema");
 const JWT = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -18,7 +17,7 @@ const jwtAuth = async (req, res, next) => {
         const payload = JWT.verify(token, process.env.JWT_Secret);
 
         //PASSING USER DATA TO A HEADER ONCE LOGIN IS SUCCESSFUL
-        req.user = { userId: payload._id, name: payload.username };
+        req.user = { _id: payload.userID, username: payload.user };
         console.log(req.user);
         //PASSES TO NEXT MIDDLEWARE
         next();
