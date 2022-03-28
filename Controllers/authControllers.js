@@ -16,7 +16,7 @@ const login = async (req, res) => {
 
     //FINDS USER IN DB
     const dbUser = await UserSchema.findOne({ email });
-
+    console.log(dbUser);
     //ERROR IF THERE IS NO SUCH USER
     if (!dbUser) {
         throw new Unauthorized("Invalid credentials");

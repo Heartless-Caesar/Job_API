@@ -1,7 +1,7 @@
 const errorHandlerMiddleware = require("./middleware/errorHandlerMiddleware");
 const jwtAuth = require("./middleware/authJWT");
 const { authRouter } = require("./Routes/authRoutes");
-const { jobRouter } = require("./Routes/jobRoutes");
+const jobRouter = require("./Routes/jobRoutes");
 const notFound = require("./middleware/notFound");
 const connectDB = require("./connect");
 const express = require("express");

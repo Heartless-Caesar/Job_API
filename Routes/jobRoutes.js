@@ -11,4 +11,4 @@ const {
 jobRouter.route("/").post(createJob).get(getAllJobs);
 jobRouter.route("/:id").get(getJob).patch(updateJob).delete(deleteJob);
 
-module.exports = { jobRouter };
+module.exports = jobRouter;

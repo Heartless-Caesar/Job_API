@@ -18,8 +18,8 @@ const jwtAuth = async (req, res, next) => {
         const payload = JWT.verify(token, process.env.JWT_Secret);
 
         //PASSING USER DATA TO A HEADER ONCE LOGIN IS SUCCESSFUL
-        req.user = { id: payload._id, name: payload.username };
-
+        req.user = { userId: payload._id, name: payload.username };
+        console.log(req.user);
         //PASSES TO NEXT MIDDLEWARE
         next();
     } catch (error) {
