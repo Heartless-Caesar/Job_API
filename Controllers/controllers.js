@@ -5,7 +5,10 @@ require("dotenv").config();
 
 //GET ALL
 const getAllJobs = async (req, res) => {
-    res.status(201).send("Get all jobs");
+    const allJobs = await jobSchema
+        .find({ createdBy: req.user._id })
+        .sort("createdAt");
+    res.status(StatusCodes.OK).json({ jobs: allJobs });
 };
 
 //GET SINGLE
