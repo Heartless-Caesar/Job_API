@@ -1,12 +1,13 @@
-const JWT = require("jsonwebtoken");
 const Unauthorized = require("./unauthorized");
+const User = require("../Schemas/userSchema");
+const JWT = require("jsonwebtoken");
 require("dotenv").config();
 
 const jwtAuth = async (req, res, next) => {
     //FINDS HEADER WITH TOKEN
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
         throw new Unauthorized("No auth header");
     }
 
@@ -22,7 +23,8 @@ const jwtAuth = async (req, res, next) => {
         //PASSES TO NEXT MIDDLEWARE
         next();
     } catch (error) {
-        throw new Unauthorized(error.message);
+        console.log(error);
+        throw new Unauthorized("Authentication invalid");
     }
 };
 

@@ -34,7 +34,7 @@ const login = async (req, res) => {
 
     res.status(StatusCodes.OK).json({
         message: `Token for user ${email} signed`,
-        token: token,
+        token: `${token}`,
     });
 };
 

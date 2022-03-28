@@ -1,5 +1,5 @@
 const errorHandlerMiddleware = require("./middleware/errorHandlerMiddleware");
-const authenticateUser = require("./middleware/authJWT");
+const jwtAuth = require("./middleware/authJWT");
 const { authRouter } = require("./Routes/authRoutes");
 const { jobRouter } = require("./Routes/jobRoutes");
 const notFound = require("./middleware/notFound");
@@ -20,7 +20,7 @@ app.use("/app/auth", authRouter);
 
 /*APPLIES THE JWT AUTH SO A USER CAN ONLY VIEW
 THE DATA ASSOCIATED TO THEIR TOKEN AND ACCOUNT*/
-app.use("/app/jobs", authenticateUser, jobRouter);
+app.use("/app/jobs", jwtAuth, jobRouter);
 
 //404 MIDDLEWARE
 app.use(notFound);

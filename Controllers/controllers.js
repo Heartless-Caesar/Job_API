@@ -1,6 +1,6 @@
 const { BadRequest } = require("../middleware/BadRequest");
 const jobSchema = require("../Schemas/jobSchema");
-const JWT = require("jsonwebtoken");
+const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
 
 //GET ALL
@@ -15,7 +15,11 @@ const getJob = async (req, res) => {
 
 //CREATE
 const createJob = async (req, res) => {
-    res.status(201).json(req.body);
+    req.body.createdBy = req.user.id;
+    console.log(req.body);
+    const companyDB = await jobSchema.create(req.body);
+
+    res.status(StatusCodes.CREATED).json({ companyDB });
 };
 
 //UPDATE
