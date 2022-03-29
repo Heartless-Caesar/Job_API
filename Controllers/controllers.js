@@ -24,6 +24,7 @@ const getJob = async (req, res) => {
     //FILTER TO FIND THE ELEMENT POSTED BY THE CURRENT USER
     const singleJob = await jobSchema.find({ _id: jobId, createdBy: _id });
 
+    //ID NOT FOUND ERROR HANDLER
     if (!singleJob) {
         throw new NotFoundError(`No element with id of ${jobId}`);
     }
@@ -42,7 +43,28 @@ const createJob = async (req, res) => {
 
 //UPDATE
 const updateJob = async (req, res) => {
-    res.status(201).send("Update job");
+    //DESTRUCTURE THE REQUEST BODY FOR INPUT, USER ID FOR SPECIFIC FILTERING AND PARAMS FOR ELEMENT ID
+    const {
+        body: { company, position },
+        user: { _id },
+        params: { id: jobId },
+    } = req;
+
+    //ERROR IN CASE OF MISSING FIELDS
+    if (company == "" || position == "") {
+        throw new BadRequest("Please provide both company and position fields");
+    }
+
+    //ELEMENT TO BE UPDATED
+    const dbUpdate = await jobSchema.findOneAndUpdate(
+        { _id: jobId, createdBy: _id },
+        req.body,
+        {
+            runValidators: true,
+            overwrite: true,
+        }
+    );
+    res.status(201).json({ dbUpdate });
 };
 
 //DELETE
