@@ -1,10 +1,12 @@
 const { BadRequest } = require("../middleware/BadRequest");
+const { NotFoundError } = require("../middleware/NotFoundError");
 const jobSchema = require("../Schemas/jobSchema");
 const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
 
 //GET ALL
 const getAllJobs = async (req, res) => {
+    //FILTERS ACCORDING TO THE CURRENTLY LOGGED USER
     const allJobs = await jobSchema
         .find({ createdBy: req.user._id })
         .sort("createdAt");
@@ -13,7 +15,20 @@ const getAllJobs = async (req, res) => {
 
 //GET SINGLE
 const getJob = async (req, res) => {
-    res.status(201).send("Get single job");
+    //GET REQ.USER ID AND THE PARAMS ELEMENT ID
+    const {
+        user: { _id },
+        params: { id: jobId },
+    } = req;
+
+    //FILTER TO FIND THE ELEMENT POSTED BY THE CURRENT USER
+    const singleJob = await jobSchema.find({ _id: jobId, createdBy: _id });
+
+    if (!singleJob) {
+        throw new NotFoundError(`No element with id of ${jobId}`);
+    }
+
+    res.status(201).json({ singleJob });
 };
 
 //CREATE
