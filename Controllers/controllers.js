@@ -10,6 +10,7 @@ const getAllJobs = async (req, res) => {
     const allJobs = await jobSchema
         .find({ createdBy: req.user._id })
         .sort("createdAt");
+
     res.status(StatusCodes.OK).json({ jobs: allJobs });
 };
 
@@ -34,8 +35,10 @@ const getJob = async (req, res) => {
 
 //CREATE
 const createJob = async (req, res) => {
+    //DYNAMICALLY SETS THE LOGGED USER AS THE AUTHOR OF THE JOB
     req.body.createdBy = req.user._id;
 
+    //CREATES ELEMENT
     const companyDB = await jobSchema.create(req.body);
 
     res.status(StatusCodes.CREATED).json({ companyDB });
@@ -49,7 +52,7 @@ const updateJob = async (req, res) => {
         user: { _id },
         params: { id: jobId },
     } = req;
-
+    console.log(req.user);
     //ERROR IN CASE OF MISSING FIELDS
     if (company == "" || position == "") {
         throw new BadRequest("Please provide both company and position fields");
@@ -60,8 +63,8 @@ const updateJob = async (req, res) => {
         { _id: jobId, createdBy: _id },
         req.body,
         {
+            new: true,
             runValidators: true,
-            overwrite: true,
         }
     );
     res.status(201).json({ dbUpdate });
