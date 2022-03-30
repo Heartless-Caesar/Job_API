@@ -67,12 +67,26 @@ const updateJob = async (req, res) => {
             runValidators: true,
         }
     );
-    res.status(201).json({ dbUpdate });
+    res.status(StatusCodes.OK).json({ dbUpdate });
 };
 
 //DELETE
 const deleteJob = async (req, res) => {
-    res.status(201).send("Delete job");
+    const {
+        params: { id: jobId },
+        user: { userId: _id },
+    } = req;
+
+    const deleteJob = await jobSchema.findByIdAndDelete({
+        _id: jobId,
+        createdBy: _id,
+    });
+
+    if (!deleteJob) {
+        throw new NotFoundError(`No element with and ID of ${jobId}`);
+    }
+
+    res.status(StatusCodes.OK).json({ msg: "Deleted job", deleted: deleteJob });
 };
 
 module.exports = {
