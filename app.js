@@ -14,6 +14,7 @@ const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const cors = require("cors");
 const xss = require("xss");
+const { StatusCodes } = require("http-status-codes");
 
 //APPLYING SECURITY LIBRARIES
 app.use(helmet());
@@ -40,6 +41,10 @@ app.use("/app/auth", authRouter);
 THE DATA ASSOCIATED TO THEIR TOKEN AND ACCOUNT*/
 app.use("/app/jobs", jwtAuth, jobRouter);
 
+//TEST
+app.get("/", (req, res) => {
+    res.status(StatusCodes.OK).send("RESPONSE TEST JOB API");
+});
 //404 MIDDLEWARE
 app.use(notFound);
 
