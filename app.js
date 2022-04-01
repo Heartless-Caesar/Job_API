@@ -13,7 +13,7 @@ const port = 5000;
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const cors = require("cors");
-const xss = require("xss");
+const xss = require("xss-clean");
 const { StatusCodes } = require("http-status-codes");
 
 //APPLYING SECURITY LIBRARIES
